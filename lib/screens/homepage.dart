@@ -1,7 +1,8 @@
 import 'package:arthur/models/subscriber.dart';
+import 'package:arthur/widgets/search_bar.dart';
+import 'package:arthur/widgets/subscriber_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -38,6 +39,10 @@ class _HomeState extends State<Home> {
         ),
         body: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: buildSearchBar(),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.subscribers.length,
@@ -60,31 +65,5 @@ class _HomeState extends State<Home> {
     //     ],
     //   ),
     // );
-  }
-
-  Widget buildSubscriberTile(Subscriber subscriber) => ListTile(
-      isThreeLine: true,
-      leading: CircleAvatar(
-        backgroundColor:
-            subscriber.hasClaimed == false ? Colors.red : Colors.green,
-      ),
-      title: Text(subscriber.firstName + " " + subscriber.lastName),
-      subtitle: Text(subscriber.xuID),
-      trailing: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            formatDate(subscriber.claimDate),
-          ),
-          Text(subscriber.editor ?? "no claim"),
-        ],
-      ));
-
-  String formatDate(DateTime? date) {
-    if (date == null) return "no claim";
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formatted = formatter.format(date);
-    return formatted;
   }
 }
