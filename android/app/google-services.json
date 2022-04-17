@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "533962611835",
+    "project_id": "arthur-2b831",
+    "storage_bucket": "arthur-2b831.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533962611835:android:24cae53716a94d89c4d6de",
+        "android_client_info": {
+          "package_name": "com.example.arthur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533962611835-t2iqaicisvcr13n6c9nhhjj4mptdudh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaXcd43agQCYjsGc7qR25CNlZACjRPmkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533962611835-t2iqaicisvcr13n6c9nhhjj4mptdudh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
