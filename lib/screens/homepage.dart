@@ -8,6 +8,7 @@ class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
   late List<Subscriber> subscribers;
+  String query = "";
 
   @override
   State<Home> createState() => _HomeState();
@@ -65,5 +66,23 @@ class _HomeState extends State<Home> {
     //     ],
     //   ),
     // );
+  }
+
+  Widget buildSearchBar() => SearchWidget(
+      text: widget.query, hintText: "ID or Last Name", onChanged: searchbook);
+
+  void searchbook(String query) {
+    final subscribers = testSubscribers.where((subscriber) {
+      final lastNameLower = subscriber.lastName.toLowerCase();
+      final firstNameLower = subscriber.firstName.toLowerCase();
+      final searchQueryLower = query.toLowerCase();
+
+      return lastNameLower.contains(searchQueryLower);
+    }).toList();
+
+    setState(() {
+      widget.query = query;
+      widget.subscribers = subscribers;
+    });
   }
 }

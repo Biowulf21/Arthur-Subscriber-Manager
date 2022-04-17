@@ -21,6 +21,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),

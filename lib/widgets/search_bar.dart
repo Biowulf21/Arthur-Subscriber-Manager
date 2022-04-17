@@ -1,12 +1,8 @@
 import 'package:arthur/models/subscriber.dart';
 import 'package:flutter/material.dart';
 
-String query = "";
-Widget buildSearchBar() => SearchWidget(
-    text: query, hintText: "ID or Last Name", onChanged: searchbook);
-
 class SearchWidget extends StatefulWidget {
-  const SearchWidget(
+  SearchWidget(
       {required this.text,
       required this.hintText,
       required this.onChanged,
@@ -16,6 +12,7 @@ class SearchWidget extends StatefulWidget {
   final String text;
   final ValueChanged<String> onChanged;
   final String hintText;
+  late List<Subscriber> subscribers;
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
@@ -23,6 +20,13 @@ class SearchWidget extends StatefulWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
   TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.subscribers = testSubscribers;
+  }
 
   @override
   void dispose() {
@@ -33,8 +37,8 @@ class _SearchWidgetState extends State<SearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const styleActive = const TextStyle(color: Colors.black);
-    const styleHint = const TextStyle(color: Colors.black54);
+    const styleActive = TextStyle(color: Colors.white);
+    final styleHint = TextStyle(color: Colors.grey[200]);
     final style = widget.text.isEmpty ? styleHint : styleActive;
     return Container(
       height: 42.0,
@@ -64,14 +68,4 @@ class _SearchWidgetState extends State<SearchWidget> {
       ),
     );
   }
-}
-
-void searchbook(String query) {
-  final subscribers = testSubscribers.where((subscriber) {
-    final lastNameLower = subscriber.lastName.toLowerCase();
-    final firstNameLower = subscriber.firstName.toLowerCase();
-    final searchQueryLower = query.toLowerCase();
-
-    return lastNameLower.contains(searchQueryLower);
-  }).toList();
 }
