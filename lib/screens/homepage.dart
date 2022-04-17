@@ -3,11 +3,12 @@ import 'package:arthur/widgets/search_bar.dart';
 import 'package:arthur/widgets/subscriber_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:arthur/services/get_subscriber_service.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
-  late List<Subscriber> subscribers;
+  late List subscribers;
   String query = "";
 
   @override
@@ -19,12 +20,19 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseSubscriber sub = FirebaseSubscriber();
     widget.subscribers = testSubscribers;
+    print(sub.getAllSubscribers());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blue[900],
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           actions: [
             Padding(
@@ -77,7 +85,9 @@ class _HomeState extends State<Home> {
       final firstNameLower = subscriber.firstName.toLowerCase();
       final searchQueryLower = query.toLowerCase();
 
-      return lastNameLower.contains(searchQueryLower);
+      return firstNameLower.contains(searchQueryLower) ||
+          lastNameLower.contains(searchQueryLower) ||
+          subscriber.xuID.contains(searchQueryLower);
     }).toList();
 
     setState(() {
