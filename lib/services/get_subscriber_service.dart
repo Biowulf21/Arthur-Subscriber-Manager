@@ -7,8 +7,14 @@ class FirebaseSubscriber {
 
   Future<List> getAllSubscribers() async {
     QuerySnapshot snapshot = await subscribers.get();
-    final allData = snapshot.docs.map((e) => e.data()).toList();
-    print(allData);
+    final List allData = snapshot.docs.map((e) => e.data()).toList();
+    print(allData.runtimeType);
     return allData;
   }
+
+  // ListToSubscriberObject (List list){
+  // for (list as item){
+
+  // }
+  // }
 }

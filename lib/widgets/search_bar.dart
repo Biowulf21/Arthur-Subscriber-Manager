@@ -1,4 +1,4 @@
-import 'package:arthur/models/subscriber.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -12,7 +12,7 @@ class SearchWidget extends StatefulWidget {
   final String text;
   final ValueChanged<String> onChanged;
   final String hintText;
-  late List<Subscriber> subscribers;
+  List? subscribers;
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
@@ -25,7 +25,12 @@ class _SearchWidgetState extends State<SearchWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.subscribers = testSubscribers;
+
+    getSubs() async {
+      widget.subscribers = await getSubscriberListItems();
+    }
+
+    getSubs();
   }
 
   @override
@@ -67,5 +72,18 @@ class _SearchWidgetState extends State<SearchWidget> {
         onChanged: widget.onChanged,
       ),
     );
+  }
+
+  Future<List> getSubscriberListItems() async {
+    List list = [];
+    var subscriberQuerySnapshotMap =
+        await FirebaseFirestore.instance.collection("Subscribers").get();
+
+    if (subscriberQuerySnapshotMap.docs.isNotEmpty) {
+      for (var doc in subscriberQuerySnapshotMap.docs) {
+        list.add(doc);
+      }
+    }
+    return list;
   }
 }
