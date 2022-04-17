@@ -1,7 +1,10 @@
 import 'package:arthur/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const Arthur());
 }
 
@@ -11,13 +14,12 @@ class Arthur extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Arthur Subscriber Manager',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(brightness: Brightness.dark),
       initialRoute: LoginPage.id,
       routes: {
-        LoginPage.id: (context) => const LoginPage(),
+        LoginPage.id: (context) => LoginPage(),
       },
     );
   }
